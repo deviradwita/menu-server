@@ -93,6 +93,20 @@ class Controller {
         }
     }
 
+    static async showCategories(req, res){
+        try{
+            const food= await Category.findAll()
+            res.status(200).json(food)
+        }
+
+        catch(err){
+            console.log(err);
+            res.status(404).json({
+                message: 'Error not Found'
+            })
+        }
+    }
+
 }
 
 module.exports = Controller
