@@ -1,0 +1,35 @@
+[
+    {
+        "username": "choco123",
+        "email" : "cocolate@mail.com", 
+        "password" : "hereChocolate",
+        "role" : "Admin", 
+        "phoneNumber": "081234567",
+        "address" : "Bekasi"
+    },
+    {
+        "username": "pika007",
+        "email" : "pikachu@mail.com", 
+        "password" : "pikapika",
+        "role" : "Admin", 
+        "phoneNumber": "081332123",
+        "address" : "Jakarta"
+    },
+    {
+        "username": "foodlovers",
+        "email" : "ilovefood@mail.com", 
+        "password" : "neversharefood",
+        "role" : "Staff", 
+        "phoneNumber": "0812333321",
+        "address" : "Bekasi"
+    },
+    {
+        "username": "lazycate",
+        "email" : "cate@mail.com", 
+        "password" : "cate1234",
+        "role" : "Staff", 
+        "phoneNumber": "0812222210",
+        "address" : "Jakarta"
+    }
+
+]
