@@ -10,6 +10,8 @@ app.use(express.urlencoded({extended:false}))
 
 app.post('/foods', Controller.createFood)
 app.get('/foods', Controller.showAllFoods)
+app.get('/foods/:id', Controller.showFoodById)
+app.delete('/foods/:id', Controller.deleteFood)
 
 
 app.listen(port, () => {
