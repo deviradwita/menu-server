@@ -1,4 +1,7 @@
+const { hash, compare } = require('../helpers/bcrypt')
+
 const {Food, User, Category} = require('../models')
+
 
 class Controller {
 
@@ -21,7 +24,7 @@ class Controller {
             // console.log(err);
             if(err.name === "SequelizeValidationError"){
                 res.status(400).json({
-                    message : err.errors.map(el=> el.message)
+                    message : err.errors[0].message
                 })
             } else{
                 res.status(500).json({
@@ -104,6 +107,29 @@ class Controller {
             res.status(404).json({
                 message: 'Error not Found'
             })
+        }
+    }
+
+    //khusus REGISTER ADMIN
+    static async registerNewUser(req, res){
+        try {
+            const {username, email, password, phoneNumber, address}= req.body
+            const userCreate = await User.create ({
+                username, email, password, phoneNumber, address
+            })
+            res.status(201).json({message : {id : userCreate.id, email } })
+          
+        } catch (err) {
+            if(err.name === "SequelizeValidationError"){
+                res.status(400).json({
+                    message : err.errors[0].message
+                })
+            } else{
+                res.status(500).json({
+                    message: 'Internal server error'
+                })
+            }
+            
         }
     }
 

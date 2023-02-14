@@ -1,5 +1,6 @@
 'use strict';
-const fs= require('fs')
+const fs= require('fs');
+const { hash } = require('../helpers/bcrypt');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -18,6 +19,7 @@ module.exports = {
    data.map(el=>{
     el.createdAt= new Date()
     el.updatedAt= new Date()
+    el.password = hash(el.password)
     return el
  })
     await queryInterface.bulkInsert('Users', data)
