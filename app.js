@@ -9,7 +9,7 @@ const router = require('./routes')
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(router);
-
+app.post('/login', Controller.login)
 
 
 

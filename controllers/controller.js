@@ -1,4 +1,5 @@
 const { hash, compare } = require('../helpers/bcrypt')
+const { createToken } = require('../helpers/jwt')
 
 const {Food, User, Category} = require('../models')
 
@@ -114,13 +115,13 @@ class Controller {
     static async registerNewUser(req, res){
         try {
             const {username, email, password, phoneNumber, address}= req.body
-            const userCreate = await User.create ({
+            const userCreated = await User.create ({
                 username, email, password, phoneNumber, address
             })
-            res.status(201).json({message : {id : userCreate.id, email } })
+            res.status(201).json({message : {id : userCreated.id, email } })
           
         } catch (err) {
-            if(err.name === "SequelizeValidationError"){
+            if(err.name === "SequelizeValidationError" || err.name === "SequelizeUniqueConstraintError"){
                 res.status(400).json({
                     message : err.errors[0].message
                 })
@@ -130,6 +131,47 @@ class Controller {
                 })
             }
             
+        }
+    }
+
+    static async login(req, res){
+        try {
+            const {email, password} = req.body
+            if(!email || !password){
+                throw {name : 'Email or Password required'}
+            }
+            const user = await User.findOne({where: {email}})
+            if (!user){
+                throw {name : 'Invalid Credential'}
+            }
+
+            const comparedPassword= compare(password, user.password)
+            if(!comparedPassword){
+                throw {name : 'Invalid Credential'}
+            }
+
+            const payload = {
+                id :user.id
+            }
+
+            const access_token= createToken(payload)
+
+            res.status(200).json({access_token})
+        } catch (err) {
+            // console.log(err);
+            if( err.name === "Email or Password required"){
+                res.status(400).json({
+                    message :"Email or Password required"
+                })
+            } else if(err.name === "Invalid Credential"){
+                res.status(401).json({
+                    message : 'Wrong Email or Password'
+                })
+            } else{
+                res.status(500).json({
+                    message: 'Internal server error'
+                })
+            }
         }
     }
 
