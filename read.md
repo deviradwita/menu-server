@@ -6,6 +6,9 @@ List of Available Endpoints:
 - `GET/ categories`
 - `GET/ foods/:id`
 - `DELETE / foods/:id`
+- `POST /register/admin`
+- `POST /login`
+
 
 ### POST/ foods
 #### Description
@@ -225,6 +228,95 @@ _Response 404 - Not Found_
       }
     }
     ```
+
+
+### POST /register/admin
+#### Description
+- Create a new account for admin
+
+
+#### Request
+- Body
+    ```json
+    {
+      "username": String,
+      "email": String,
+      "password": String,
+      "phoneNumber": String,
+      "address": String
+    }
+    ```
+#### Response
+_201 - Created_
+- Body
+    ```json
+    {message : {id, email } }
+    ```
+
+_Response (400 - Bad Request)_
+
+```json
+{
+  "message": "Email already been used."
+}
+OR
+{
+  "message": "Email is Required"
+}
+OR
+{
+  "message": "input must be email format"
+}
+OR
+{
+  "message": "Password is Required"
+}
+
+```
+
+
+
+### POST /login
+#### Description
+- login for user and admin
+
+
+#### Request
+- Body
+    ```json
+    {
+      "email": String,
+      "password": String,
+    }
+    ```
+#### Response
+_200 - Ok_
+Request:
+- body:
+
+```json
+{
+  "access_token": "string"
+}
+```
+
+ 
+
+_Response (400 - Bad Request)_
+
+
+```json
+{
+  "message": "Email or Password required"
+}
+```
+
+_401 - Unauthorized _
+```json
+{
+  "message": "Wrong Email or Password"
+}
+```
 
 
 ## Global Error

@@ -1,5 +1,5 @@
 const { hash, compare } = require('../helpers/bcrypt')
-const { createToken } = require('../helpers/jwt')
+const { createToken} = require('../helpers/jwt')
 
 const {Food, User, Category} = require('../models')
 
@@ -9,12 +9,14 @@ class Controller {
     //membuat entitas utama (create/post)
     static async createFood(req, res){
         try{
+            // console.log(req.user, ">>>>>>>>>>>");
+            const authorId =req.user.id
             const food= await Food.create({
                 name: req.body.name,
                 description : req.body.description,
                 price: req.body.price,
                 imgUrl: req.body.imgUrl,
-                authorId: req.body.authorId,
+                authorId,
                 categoryId: req.body.categoryId
             })
     
@@ -104,7 +106,7 @@ class Controller {
         }
 
         catch(err){
-            console.log(err);
+            // console.log(err);
             res.status(404).json({
                 message: 'Error not Found'
             })
