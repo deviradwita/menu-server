@@ -13,7 +13,7 @@ async function authentication (req, res, next) {
         const payload = verifyToken(access_token)
         // console.log(payload.id);
         const user = await User.findByPk(payload.id)
-        console.log(user);
+        // console.log(user);
         if(!user){
             throw {name : "InvalidToken"}
         }
@@ -26,16 +26,9 @@ async function authentication (req, res, next) {
         next()
         
     } catch (err) {
-        // console.log(err);
-        if (err.name === "InvalidToken" || err.name === "JsonWebTokenError") {
-            res.status(401).json({
-                message : 'Invalid Token'
-            })
-        } else {
-            res.status(500).json({
-                message: 'Internal server error'
-            })
-        }
+        // // console.log(err);
+        next(err)
+        
     }
 }
 

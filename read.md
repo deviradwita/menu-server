@@ -16,6 +16,15 @@ List of Available Endpoints:
 
 
 #### Request
+
+
+- headers: 
+
+```json
+{
+  "access_token": "string"
+}
+```
 - Body
     ```json
     {
@@ -68,6 +77,16 @@ OR
 {
   "message": "ImgUrl is Required."
 }
+
+
+
+```
+
+_Response (401 - Unauthorized)_
+```json
+{
+  "message": "Invalid Token",
+}
 ```
 
 
@@ -77,7 +96,15 @@ OR
 Description:
 - Get all Foods data from database
 
+Request:
 
+- headers: 
+
+```json
+{
+  "access_token": "string"
+}
+```
 _Response (200 - OK)_
 
 ```json
@@ -119,11 +146,33 @@ _Response 500 - Internal Server Error_
     ```
 
 
+_Response (401 - Unauthorized)_
+ ```json
+{
+  "message": "Invalid Token",
+}
+ ```
+
+
+
+
+
+
+
 ## 3. GET/ foods/:id
 
 Description:
 - Get Food Data By Id
 
+Request:
+
+- headers: 
+
+```json
+{
+  "access_token": "string"
+}
+```
 
 _Response (200 - OK)_
 - Params
@@ -141,8 +190,18 @@ _Response (200 - OK)_
 }
 ```
 
-_Response 404 - Not Found_
+
+
+
+_Response (401 - Unauthorized)_
 - Body
+ ```json
+{
+  "message": "Invalid Token",
+}
+ ```
+_Response 404 - Not Found_
+
     ```json
     {
       "statusCode": 404,
@@ -152,12 +211,24 @@ _Response 404 - Not Found_
     }
     ```
 
+  
+
 
 
 
 ### DELETE /foods/:id
 #### Description
 - Remove a food data based on given id
+
+Request:
+
+- headers: 
+
+```json
+{
+  "access_token": "string"
+}
+```
 
 #### Response
 _200 - OK_
@@ -168,6 +239,15 @@ _200 - OK_
       "message": "<entity name> success to delete"
     }
     ```
+
+ _Response (401 - Unauthorized)_
+ ```json
+{
+  "message": "Invalid Token",
+}
+ ```
+
+
 _404 - Not Found_
 - Body
     ```json
@@ -179,6 +259,13 @@ _404 - Not Found_
     }
     ```
 
+_Response (403 - Forbidden)_
+ ```json
+{
+  "message": "Not Allowed",
+}
+ ```
+
 
 
 ## GET/ foods/detail
@@ -186,6 +273,15 @@ _404 - Not Found_
 Description:
 - Get all data
 
+Request:
+
+- headers: 
+
+```json
+{
+  "access_token": "string"
+}
+```
 
 _Response (200 - OK)_
 
@@ -217,6 +313,13 @@ _Response (200 - OK)_
     }
 ]
 ```
+
+ _Response (401 - Unauthorized)_
+ ```json
+{
+  "message": "Invalid Token",
+}
+ ```
 
 _Response 404 - Not Found_
 - Body
