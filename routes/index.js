@@ -6,6 +6,7 @@ const category = require ('../routes/category')
 const register = require ('../routes/register')
 const login = require ('../routes/login')
 const authentication = require('../middleware/authentication')
+const user = require ('../routes/user')
 
 
 
@@ -13,7 +14,7 @@ const authentication = require('../middleware/authentication')
 router.use(login)
 router.use(register);
 router.use(authentication)
-
+router.use(user)
 router.use(food);
 router.use(category);
 

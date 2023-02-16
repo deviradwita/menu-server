@@ -70,7 +70,12 @@ class Controller {
     static async showAllFoods(req, res, next){
 
         try{
-            const food= await Food.findAll({include : User})
+            const food= await Food.findAll({
+                include : {
+                    model : User,
+                    attributes : ['id','username', 'email', 'address', 'role']
+                }
+            })
             res.status(200).json(food)
         }
 
@@ -122,7 +127,32 @@ class Controller {
             
         }
     }
+    
 
+    static async deleteCategory(req, res, next){
+        try{
+    
+            const category= await Category.findByPk(req.params.id)
+            if (!category){
+                throw {name : 'NotFound'}
+            }
+            await Category.destroy({where:{
+                id:req.params.id}
+            })
+            // console.log(category);
+
+            res.status(200).json({
+                message : `${category.name} success to delete`
+            })
+
+        }
+
+        catch(err){
+            // console.log(err);
+            next(err)
+            
+        }
+    }
     static async showCategories(req, res, next){
         try{
             const food= await Category.findAll()
@@ -179,12 +209,29 @@ class Controller {
 
             const access_token= createToken(payload)
 
-            res.status(200).json({access_token, email, role: user.role})
+            res.status(200).json({access_token, email, role: user.role, id : user.id})
         } catch (err) {
             // console.log(err);
             next(err)
           
         }
+    }
+
+    static async checkLogin(req, res, next){
+        // console.log(req.user);
+        try {
+            const user = await User.findOne({
+                where : {
+                    id: req.user.id
+                }, attributes : ['username', 'email', 'address', 'role']
+            })
+            //pake attributes
+            // console.log(user);
+            res.status(200).json(user)
+        } catch (err) {
+            next(err)
+        }
+       
     }
 
     static async loginGoogle(req, res, next){
@@ -211,9 +258,10 @@ class Controller {
 
             const access_token= createToken({
                 id: user.id,
-                email: user.email
+                email: user.email,
+                username: user.username
             })
-            res.status(201).json({access_token, email: payload.email, role: 'Staff'})
+            res.status(201).json({access_token, email: payload.email, role: 'Staff', id: user.id})
 
           
       
