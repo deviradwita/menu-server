@@ -3,7 +3,7 @@ const { createToken} = require('../helpers/jwt')
 const {OAuth2Client} = require('google-auth-library');
 const  CLIENT_ID = process.env.CLIENT_ID
 
-const {Food, User, Category} = require('../models')
+const {Food, User, Category, History} = require('../models')
 
 
 class Controller {
@@ -14,6 +14,22 @@ class Controller {
                 name: req.body.name
             })
             // console.log(category);
+            
+            const user= await User.findOne({
+                where: {
+                    id: req.user.id
+                },
+                attributes : ['id','username', 'email']
+            })
+
+
+            let description = `New Category - ${req.body.name} added`
+            const history = await History.create({
+                title: req.body.name,
+                description,
+                updatedBy : user.username
+            })
+
             res.status(201).json(category)
         }
     
@@ -46,6 +62,24 @@ class Controller {
                 authorId,
                 categoryId: req.body.categoryId
             })
+
+            const user= await User.findOne({
+                where: {
+                    id: req.user.id
+                },
+                attributes : ['id','username', 'email']
+            })
+
+            // console.log(user.username);
+
+            let description = `New Food - ${req.body.name} with ID ${food.id} added`
+            const history = await History.create({
+                title: req.body.name,
+                description,
+                updatedBy : user.username
+            })
+
+            // console.log(food);
     
             res.status(201).json(food)
         }
@@ -105,6 +139,92 @@ class Controller {
             // res.status(404).json({
             //     message: 'Error not Found'
             // })
+        }
+    }
+
+    static async editFoodById (req, res, next){
+        try {
+            const food = await Food.update({
+                name : req.body.name,
+                description : req.body.description,
+                price : req.body.price,
+                imgUrl: req.body.imgUrl, 
+                categoryId : req.body.categoryId
+
+            },
+            {
+                where : {
+                    id : req.params.id
+                }
+            })
+            // console.log(food);
+            if(!food){
+                throw {name : 'NotFound'}
+            }
+            const user= await User.findOne({
+                where: {
+                    id: req.user.id
+                },
+                attributes : ['id','username', 'email']
+            })
+
+            // console.log(user.username);
+
+            let description = `Product with ID ${food} updated`
+            const history = await History.create({
+                title: req.body.name,
+                description,
+                updatedBy : user.username
+            })
+            res.status(200).json({message : "sucessfuly edit food"})
+
+            
+        } catch (err) {
+            // console.log(err);
+            next(err)
+            
+        }
+    }
+
+    static async editFoodStatusById (req, res, next){
+        try {
+
+            const beforeFood= await Food.findByPk(req.params.id)
+            // console.log(beforeFood.status);
+            let statusBeforeUpdate =beforeFood.status
+            const food = await Food.update({
+                status : req.body.status
+            },
+            {
+                where : {
+                    id : req.params.id
+                }
+            })
+
+            if(!food){
+                throw {name : 'NotFound'}
+            }
+
+            const user= await User.findOne({
+                where: {
+                    id: req.user.id
+                },
+                attributes : ['id','username', 'email']
+            })
+
+            // console.log(user.username);
+
+            let description = `Product status with ID ${food} has been update from ${statusBeforeUpdate} to ${req.body.status}`
+            const history = await History.create({
+                title: beforeFood.name,
+                description,
+                updatedBy : user.username
+            })
+
+            res.status(200).json({message : "sucessfuly edit status"})
+            
+        } catch (err) {
+            
         }
     }
 

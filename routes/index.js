@@ -13,8 +13,8 @@ const user = require ('../routes/user')
 
 router.use(login)
 router.use(register);
-router.use(authentication)
-router.use(user)
+router.use(authentication);
+router.use(user);
 router.use(food);
 router.use(category);
 

@@ -71,10 +71,16 @@ module.exports = (sequelize, DataTypes) => {
       } 
      },
     authorId: DataTypes.INTEGER,
-    categoryId: DataTypes.INTEGER
+    categoryId: DataTypes.INTEGER,
+    status: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Food',
   });
+
+ 
+  Food.beforeCreate((Food, options)=>{
+    Food.status = "Active"
+  })
   return Food;
 };
