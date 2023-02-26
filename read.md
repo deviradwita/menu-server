@@ -32,7 +32,6 @@ List of Available Endpoints:
       "description": String,
       "price": Integer,
       "imgUrl": String,
-      "authorId": Integer,
       "categoryId": Integer
     }
     ```
@@ -49,8 +48,8 @@ _201 - Created_
       "imgUrl": String,
       "authorId": Integer,
       "categoryId": Integer,
-      "categoryId": Date,
-      "categoryId": Date
+      "updatedAt": Date,
+      "createdAt": Date
       }
     }
     ```

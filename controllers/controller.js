@@ -9,7 +9,7 @@ const {Food, User, Category, History} = require('../models')
 class Controller {
     static async createCategory(req, res, next){
         try{
-         
+        //  console.log("hello from controller create category");
             const category= await Category.create({
                 name: req.body.name
             })
@@ -46,6 +46,46 @@ class Controller {
             //     })
             // }
            
+        }
+    }
+
+    static async editcategoryById (req, res, next){
+        try {
+            const category = await Category.update({
+                name : req.body.name
+
+            },
+            {
+                where : {
+                    id : req.params.id
+                }
+            })
+            // console.log(food);
+            if(!category){
+                throw {name : 'NotFound'}
+            }
+            const user= await User.findOne({
+                where: {
+                    id: req.user.id
+                },
+                attributes : ['id','username', 'email']
+            })
+
+            // console.log(user.username);
+
+            let description = `Category with ID ${category} updated`
+            const history = await History.create({
+                title: req.body.name,
+                description,
+                updatedBy : user.username
+            })
+            res.status(200).json({message : "sucessfuly edit category"})
+
+            
+        } catch (err) {
+            // console.log(err);
+            next(err)
+            
         }
     }
 
@@ -104,10 +144,12 @@ class Controller {
     static async showAllFoods(req, res, next){
 
         try{
+            // console.log("masuk controller");
             const food= await Food.findAll({
                 include : {
                     model : User,
-                    attributes : ['id','username', 'email', 'address', 'role']
+                    attributes : ['id','username', 'email', 'address', 'role'],
+
                 }
             })
             res.status(200).json(food)
@@ -170,7 +212,7 @@ class Controller {
 
             // console.log(user.username);
 
-            let description = `Product with ID ${food} updated`
+            let description = `Food with ID ${food} updated`
             const history = await History.create({
                 title: req.body.name,
                 description,
@@ -214,7 +256,7 @@ class Controller {
 
             // console.log(user.username);
 
-            let description = `Product status with ID ${food} has been update from ${statusBeforeUpdate} to ${req.body.status}`
+            let description = `Food status with ID ${food} has been update from ${statusBeforeUpdate} to ${req.body.status}`
             const history = await History.create({
                 title: beforeFood.name,
                 description,
@@ -224,7 +266,23 @@ class Controller {
             res.status(200).json({message : "sucessfuly edit status"})
             
         } catch (err) {
-            
+            next(err)
+        }
+    }
+
+    static async showHistories (req, res, next){
+        try {
+            // console.log("heloo");
+            const history= await History.findAll({
+                order : [
+                    ['createdAt', 'DESC']
+                ]
+            })
+            res.status(200).json(history)
+
+        } catch (err) {
+            // console.log(err);
+            next(err)
         }
     }
 
@@ -290,7 +348,22 @@ class Controller {
             // })
         }
     }
+    
+    static async showCategorybById(req, res, next){
+        try{
+            const category= await Category.findByPk(req.params.id)
+            if(!category){
+                throw {name : 'NotFound'}
+            }
+            res.status(200).json(category)
+            
+        }
+  
+        catch(err){
+            next(err)
 
+        }
+    }
     //khusus REGISTER ADMIN
     static async registerNewUser(req, res, next){
         try {
@@ -309,6 +382,7 @@ class Controller {
     static async login(req, res, next){
         try {
             const {email, password} = req.body
+            console.log(email,password, ">>>>>>>>>>>");
             if(!email || !password){
                 throw {name : 'Email or Password required'}
             }
@@ -362,6 +436,7 @@ class Controller {
                 idToken: req.headers.token,
                 audience: CLIENT_ID, 
             });
+            
             const payload = ticket.getPayload()
             // console.log(payload);
 
