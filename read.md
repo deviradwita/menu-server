@@ -14,6 +14,7 @@ List of Available Endpoints:
 - `PUT /categories/:id`
 - `PATCH /foods/:id`
 - `PUT /foods/:id`
+- `GET/ categories/:id`
 
 
 
@@ -166,7 +167,7 @@ _Response (401 - Unauthorized)_
 
 
 
-## 3. GET/ foods/:id
+##  GET/ foods/:id
 
 Description:
 - Get Food Data By Id
@@ -674,6 +675,52 @@ _Response (403 - Forbidden)_
   "message": "Not Allowed",
 }
  ```
+
+ ##  GET/ categories/:id
+
+Description:
+- Get category Data By Id
+
+Request:
+
+- headers: 
+
+```json
+{
+  "access_token": "string"
+}
+```
+
+_Response (200 - OK)_
+- Params
+```json
+{
+    "id": 1,
+    "name": "Indonesian Food",
+    "createdAt": "2023-02-13T10:52:59.047Z",
+    "updatedAt": "2023-02-13T10:52:59.047Z"
+}
+```
+
+
+_Response (401 - Unauthorized)_
+- Body
+ ```json
+{
+  "message": "Invalid Token",
+}
+ ```
+_Response 404 - Not Found_
+
+    ```json
+    {
+      "statusCode": 404,
+      "error": {
+        "message": "Error not found"
+      }
+    }
+    ```
+
 
 
 ## Global Error
