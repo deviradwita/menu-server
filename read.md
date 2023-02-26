@@ -8,6 +8,14 @@ List of Available Endpoints:
 - `DELETE / foods/:id`
 - `POST /register/admin`
 - `POST /login`
+- `DELETE /categories/:id`
+- `GET/ histories`
+- `PUT /foods/:id`
+- `PUT /categories/:id`
+- `PATCH /foods/:id`
+- `PUT /foods/:id`
+
+
 
 
 ### POST/ foods
@@ -376,6 +384,112 @@ OR
 
 ```
 
+### DELETE /categories/:id
+#### Description
+- Remove a category data based on given id
+
+Request:
+
+- headers: 
+
+```json
+{
+  "access_token": "string"
+}
+```
+
+#### Response
+_200 - OK_
+- Params
+    ```json
+    {
+      "statusCode": 200,
+      "message": "<entity name> success to delete"
+    }
+    ```
+
+ _Response (401 - Unauthorized)_
+ ```json
+{
+  "message": "Invalid Token",
+}
+ ```
+
+
+_404 - Not Found_
+- Body
+    ```json
+    {
+      "statusCode": 404,
+      "error": {
+        "message": "Error not found"
+      }
+    }
+    ```
+
+
+
+
+ ## GET/ histories
+
+Description:
+- Get all logs data
+
+Request:
+
+- headers: 
+
+```json
+{
+  "access_token": "string"
+}
+```
+
+_Response (200 - OK)_
+
+```json
+[
+      {
+        "id": 2,
+        "title": "Burger",
+        "description": "Food status with ID 1 has been update from Active to Inactive",
+        "updatedBy": "test",
+        "createdAt": "2023-02-26T04:06:15.329Z",
+        "updatedAt": "2023-02-26T04:06:15.329Z"
+    },
+    {
+        "id": 1,
+        "title": "Burger",
+        "description": "New Food - Burger with ID 1 added",
+        "updatedBy": "Devira Dwita Rizkiningrum",
+        "createdAt": "2023-02-26T03:54:28.555Z",
+        "updatedAt": "2023-02-26T03:54:28.555Z"
+    }
+
+]
+```
+
+ _Response (401 - Unauthorized)_
+ ```json
+{
+  "message": "Invalid Token",
+}
+ ```
+
+_Response 404 - Not Found_
+- Body
+    ```json
+    {
+      "statusCode": 404,
+      "error": {
+        "message": "Error not found"
+      }
+    }
+    ```
+
+
+
+
 
 
 ### POST /login
@@ -420,6 +534,147 @@ _401 - Unauthorized _
 }
 ```
 
+### PUT /foods/:id
+#### Description
+- edit a food data based on given id
+
+Request:
+
+- headers: 
+
+```json
+{
+  "access_token": "string"
+}
+```
+
+#### Response
+_200 - OK_
+- Params
+    ```json
+    {
+      "statusCode": 200,
+      "message": "<entity name> success to edit"
+    }
+    ```
+
+ _Response (401 - Unauthorized)_
+ ```json
+{
+  "message": "Invalid Token",
+}
+ ```
+
+
+_404 - Not Found_
+- Body
+    ```json
+    {
+      "statusCode": 404,
+      "error": {
+        "message": "Error not found"
+      }
+    }
+    ```
+
+
+
+
+### PUT /categories/:id
+#### Description
+- edit a category data based on given id
+
+Request:
+
+- headers: 
+
+```json
+{
+  "access_token": "string"
+}
+```
+
+#### Response
+_200 - OK_
+- Params
+    ```json
+    {
+      "statusCode": 200,
+      "message": "<entity name> success to edit"
+    }
+    ```
+
+ _Response (401 - Unauthorized)_
+ ```json
+{
+  "message": "Invalid Token",
+}
+ ```
+
+
+_404 - Not Found_
+- Body
+    ```json
+    {
+      "statusCode": 404,
+      "error": {
+        "message": "Error not found"
+      }
+    }
+    ```
+
+
+
+ ### PATCH /foods/:id
+#### Description
+- edit a food status data based on given id
+
+Request:
+
+- headers: 
+
+```json
+{
+  "access_token": "string"
+}
+```
+
+#### Response
+_200 - OK_
+- Params
+    ```json
+    {
+      "statusCode": 200,
+      "message": "food status successfully change from active to inactive
+    }
+    ```
+
+ _Response (401 - Unauthorized)_
+ ```json
+{
+  "message": "Invalid Token",
+}
+ ```
+
+
+_404 - Not Found_
+- Body
+    ```json
+    {
+      "statusCode": 404,
+      "error": {
+        "message": "Error not found"
+      }
+    }
+    ```
+
+_Response (403 - Forbidden)_
+ ```json
+{
+  "message": "Not Allowed",
+}
+ ```
+
 
 ## Global Error
 
@@ -432,6 +687,6 @@ _Response (500 - Internal Server Error)_
       "error": {
         "message": "Internal Server Error"
       }
-    }
+  }
 ```
 
