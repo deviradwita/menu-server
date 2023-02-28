@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate :{
         notEmpty:{
-          msg: `Email is Required.`
+          msg: `Email cannot be empty string.`
         },
         notNull: {
           msg: `Email is Required.`
@@ -41,13 +41,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate :{
         notEmpty:{
-          msg: `Password is Required.`
+          msg: `Password cannot be empty string.`
         },
         notNull: {
           msg: `Password is Required.`
         },  
         len: {
-          args: [5, 15],
+          args: [5, Infinity],
           msg: "Minimal Password is 5 Characters."
         }
         
@@ -66,8 +66,8 @@ module.exports = (sequelize, DataTypes) => {
     user.password = hash(user.password)
   })
   
-  User.beforeCreate((user, options)=>{
-    user.role = "Admin"
-  })
+  // User.beforeCreate((user, options)=>{
+  //   user.role = "Admin"
+  // })
   return User;
 };

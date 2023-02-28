@@ -7,7 +7,7 @@ const app = express();
 const cors = require('cors')
 
 
-const port = process.env.PORT || 3000;
+
 const Controller = require("./controllers/controller");
 const errorHandler = require("./middleware/errorHandler");
 const { Food, User, Category } = require("./models");
@@ -19,6 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(router);
 app.use(errorHandler)
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+
+module.exports = app
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`);
+// });

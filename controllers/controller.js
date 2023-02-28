@@ -331,6 +331,7 @@ class Controller {
             
         }
     }
+
     static async showCategories(req, res, next){
         try{
             const food= await Category.findAll()
@@ -369,7 +370,7 @@ class Controller {
         try {
             const {username, email, password, phoneNumber, address}= req.body
             const userCreated = await User.create ({
-                username, email, password, phoneNumber, address
+                username, email, password, phoneNumber, address, role: 'Admin'
             })
             res.status(201).json({message : {id : userCreated.id, email } })
           
@@ -448,7 +449,7 @@ class Controller {
                   password: 'generalPassword',
                   role: 'Staff'
                 },
-                hooks: false
+                // hooks: false
             })
 
             const access_token= createToken({
