@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Food.belongsTo(models.User, {foreignKey: 'authorId'})
       Food.belongsTo(models.Category, {foreignKey: 'categoryId'})
+      Food.hasMany(models.Bookmark)
+
     }
   }
   Food.init({
@@ -78,9 +80,15 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Food',
   });
 
- 
+  Food.beforeBulkCreate((Foods, options)=>{
+    Foods.forEach(el=>{
+      el.status = "Active"
+    })
+  })
   Food.beforeCreate((Food, options)=>{
     Food.status = "Active"
+
   })
+ 
   return Food;
 };

@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.hasMany(models.Food, {foreignKey: 'authorId'})
+      User.hasMany(models.Bookmark)
+
     }
   }
   User.init({
@@ -62,9 +64,17 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'User',
   });
 
+  User.beforeBulkCreate((user, options)=>{
+    user.forEach(el=>{
+      el.password = hash(el.password)
+    })
+  })
+
   User.beforeCreate((user, options)=>{
     user.password = hash(user.password)
   })
+  
+
   
   // User.beforeCreate((user, options)=>{
   //   user.role = "Admin"

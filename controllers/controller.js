@@ -447,7 +447,7 @@ class Controller {
                   username: payload.name, 
                   email : payload.email,
                   password: 'generalPassword',
-                  role: 'Staff'
+                  role: 'Customer'
                 },
                 // hooks: false
             })
