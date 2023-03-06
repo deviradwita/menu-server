@@ -24,5 +24,4 @@ router.use(food);
 router.use(category);
 
 
-
 module.exports= router
