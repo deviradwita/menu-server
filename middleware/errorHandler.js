@@ -4,6 +4,10 @@ function errorHandler (err, req, res, next) {
       res.status(400).json({
         message: "Email or Password required",
       });
+    } else if(err.name === "alreadyBook"){
+      res.status(400).json({
+        message: "You Already Love This Food",
+      });
     } else if (err.name === "SequelizeValidationError" ||err.name === "SequelizeUniqueConstraintError") {
       res.status(400).json({
         message: err.errors[0].message,

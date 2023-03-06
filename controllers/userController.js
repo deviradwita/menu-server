@@ -4,6 +4,8 @@ const { Op } = require("sequelize");
 const { Food, User, Category, History, Bookmark} = require("../models");
 const {OAuth2Client} = require('google-auth-library');
 const  CLIENT_ID = process.env.CLIENT_ID
+const  ACCESS_TOKEN = process.env.ACCESS_TOKEN
+const axios = require('axios')
 
 
 class PublicController {
@@ -32,7 +34,7 @@ class PublicController {
   static async loginCustomer(req, res, next) {
     try {
       const { email, password } = req.body;
-      console.log(email, password, ">>>>>>>>>>>");
+      // console.log(email, password, ">>>>>>>>>>>");
       if (!email || !password) {
         throw { name: "Email or Password required" };
       }
@@ -57,63 +59,100 @@ class PublicController {
 
       res.status(200).json({ access_token });
     } catch (err) {
-      // console.log(err);
+      // console.log(err, "errooor");
       next(err);
     }
   }
 
   static async fetchFoods(req, res, next) {
     try {
-      const { filter, page } = req.query;
-      let limit;
-      let offset;
+      console.log(req.query);
+      const getPagingData = (data, page, limit) => {
+        const { count: totalItems, rows: listFoods } = data;
+        const currentPage = page ? +page : 1;
+        const totalPages = Math.ceil(totalItems / limit);
+      
+        return { totalItems, totalPages, currentPage, listFoods  };
+      };
+      // const { filter, page, size, search } = req.query;
+      const filter = req.query.filter
+      const page = req.query.page
+      const size = req.query.size
+      const search = req.query.search
+      
+      let limit =9
+      let offset= 0
 
       let option = {
+        where : {
+          status : "Active"
+        },
         include: {
           model: User,
-          attributes: ["id", "username", "email"],
-        },
+          attributes: ["id", "username", "email"], 
+        }
       };
 
-      // console.log(typeof filter, filter, ">>>>>>");
+      // console.log( filter, ">>>>>> filter");
+      // console.log(search, "ini search");
       if (filter) {
+        // console.log("masuk filter");
         option.where = {
           // TagId: sort
+          status : "Active",
           categoryId: { [Op.eq]: filter },
           // [Op.eq] : sort
         };
       }
+      if (search) {
+       
+        option.where = {
+          status : "Active",
+          name : {[Op.iLike]: `%${search}%`}
+        }
+        // console.log(option,"masuk search");
+      }
+
+     
       // console.log(page);
       // console.log(option, ">>>>>>>>>");
 
-     if (page) {
+    //  if (page) {
       // pagination
       if (page !== "" && typeof page !== "undefined") {
-        if (page.size !== "" && typeof page.size !== "undefined") {
-          limit = page.size;
-          option.limit = limit;
-        }
-
-        if (page.number !== "" && typeof page.number !== "undefined") {
-          offset = page.number * limit - limit;
+          offset = page * limit - limit;
+          console.log(page, offset, "ini offset");
           option.offset = offset;
-        }
+      } 
+      if(size !== "" && typeof size !== "undefined"){
+          limit = size;
+          option.limit = limit;
       } else {
-        limit = 5; // limit 5 item
-        offset = 0;
+        // console.log("masuk else page");
+        // limit = 6; // limit 6 item
+        // offset = 0;
+        // console.log(limit, "limit query else");
         option.limit = limit;
         option.offset = offset;
       }
 
-     }
-      //  console.log(option, ">>>>>>>>>");
+    //  }
+
+    
+       console.log(">>>>>>",option, ">>>>>>>>>");
       // // console.log("masuk food public");
-      const food = await Food.findAll(option);
+      const food = await Food.findAndCountAll(option);
+      const response = getPagingData(food, page, limit)
+      // console.log(response.listFoods.length);
+      if (response.listFoods.length ===0) {
+        throw {name : 'NotFound'}
+      }
+    
      
       // console.log(food);
-      res.status(200).json(food);
+      res.status(200).json(response);
     } catch (error) {
-      // console.log(error);
+      console.log(error, "errror");
       next(error);
     }
   }
@@ -180,6 +219,19 @@ static async addBookmark(req, res, next){
     if (!food) {
       throw {name : 'NotFound'}
     }
+    const checkBookmark = await Bookmark.findOne({
+      where: {
+        [Op.and]: [
+          { FoodId },
+          { UserId }
+        ]
+      }
+    })
+    console.log(checkBookmark, "cheeek");
+    if (checkBookmark) {
+      throw {name : 'alreadyBook'}
+    }
+    
     const bookmark= await Bookmark.create({
       UserId, FoodId
     })
@@ -196,6 +248,7 @@ static async fetchBookmark(req, res, next){
   try {
     let UserId = req.user.id
     const bookmark= await Bookmark.findAll({
+      include : Food,
       where : {
         UserId
       }
@@ -203,10 +256,55 @@ static async fetchBookmark(req, res, next){
     res.status(200).json(bookmark)
     
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     next(error)
   }
 }
+
+static async fetchCategories(req, res, next){
+  try{
+      const category= await Category.findAll()
+      if(!category){
+          throw {name : 'NotFound'}
+      }
+      res.status(200).json(category)
+  }
+
+  catch(err){
+      // console.log(err);
+      next(err)
+      // res.status(404).json({
+      //     message: 'Error not Found'
+      // })
+  }
 }
+
+static async getQrCode(req, res, next){
+  try {
+    const { data } = await axios({
+      method: "post",
+      url: `https://api.qr-code-generator.com/v1/create?access-token=${ACCESS_TOKEN}
+      `,
+      data : {
+        "frame_name": "no-frame",
+        "qr_code_text": `https://midnight-cafe-f4013.web.app/foods/${req.params.id}`,
+        "image_format": "SVG",
+        "qr_code_logo": "scan-me-square"
+    }
+    })
+
+    // console.log(data, "data qr");
+    // res.status(200).json(data)
+    res.send(data)
+  } catch (error) {
+    // console.log(error);
+    next(error)
+    
+  }
+}
+
+}
+
+
 
 module.exports = PublicController;

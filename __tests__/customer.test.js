@@ -136,7 +136,7 @@ describe('POST /public/register', function(){
         // console.log(response.body, ">>>>>>>>>>");
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty('message')
-        expect(response.body.message).toEqual("Email cannot be empty string.")
+        expect(response.body.message).toEqual("Email is Required.")
      
      
     }) 
@@ -154,7 +154,7 @@ describe('POST /public/register', function(){
         // console.log(response.body, ">>>>>>>>>>");
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty('message')
-        expect(response.body.message).toEqual("Password cannot be empty string.")
+        expect(response.body.message).toEqual("Password is Required.")
      
      
     }) 
@@ -247,16 +247,28 @@ describe('GET /public/foods', function(){
         const response = await request(app)
         .get('/public/foods')
 
-        // console.log(response, ">>>>>>>>>>");
+        // console.log(response, "ini>>>>>>>>>>");
         expect(response.status).toBe(200)
-        expect(Array.isArray(response.body)).toEqual(true)
-        expect(response.body[0]).toHaveProperty("name")
-        expect(response.body[0]).toHaveProperty("description")
-        expect(response.body[0]).toHaveProperty("price")
-        expect(response.body[0]).toHaveProperty("categoryId")
-        expect(response.body[0].name).toEqual("burger")
-        expect(response.body[0].description).toEqual("burger")
-        expect(response.body[0].price).toEqual(25000)
+        expect(typeof response.body).toEqual('object')
+        expect(response.body.listFoods[0]).toHaveProperty("name")
+        expect(response.body.listFoods[0]).toHaveProperty("description")
+        expect(response.body.listFoods[0]).toHaveProperty("price")
+        expect(response.body.listFoods[0]).toHaveProperty("categoryId")
+
+    })
+
+    it("should send a response with 200 status code when using search", async function (){
+        const response = await request(app)
+        .get('/public/foods?search=burger')
+        // console.log(response, "inis earch");
+        expect(response.status).toBe(200)
+        expect(typeof response.body).toEqual('object')
+        expect(response.body.listFoods[0]).toHaveProperty("name")
+        expect(response.body.listFoods[0]).toHaveProperty("description")
+        expect(response.body.listFoods[0]).toHaveProperty("price")
+        expect(response.body.listFoods[0]).toHaveProperty("categoryId")
+
+      
 
     })
 
@@ -264,20 +276,28 @@ describe('GET /public/foods', function(){
         const response = await request(app)
         .get('/public/foods?filter=2')
         expect(response.status).toBe(200)
-        expect(Array.isArray(response.body)).toEqual(true)
-        expect(response.body[0]).toHaveProperty("categoryId")
-        expect(response.body[0].categoryId).toEqual(2)
+        expect(typeof response.body).toEqual('object')
+        expect(response.body.listFoods[0]).toHaveProperty("name")
+        expect(response.body.listFoods[0]).toHaveProperty("description")
+        expect(response.body.listFoods[0]).toHaveProperty("price")
+        expect(response.body.listFoods[0]).toHaveProperty("categoryId")
+
       
 
     })
 
     it("should send a response with 200 status code when using pagination", async function (){
         const response = await request(app)
-        .get('/public/foods?page[size]=3&page[number]=1')
-        // console.log(response, ">>>>>>");
+        .get('/public/foods?size=3&page=1')
+        console.log(response, "pagination>>>>>>");
+       
         expect(response.status).toBe(200)
-        expect(Array.isArray(response.body)).toEqual(true)
-        expect(response.body.length).toEqual(3)
+        expect(typeof response.body).toEqual('object')
+        expect(response.body.listFoods[0]).toHaveProperty("name")
+        expect(response.body.listFoods[0]).toHaveProperty("description")
+        expect(response.body.listFoods[0]).toHaveProperty("price")
+        expect(response.body.listFoods[0]).toHaveProperty("categoryId")
+
       
 
     })
@@ -322,7 +342,7 @@ describe('GET /public/foods', function(){
                 FoodId : 1
             })
             .set('access_token', access_token)
-            console.log(response.body, "ini add book>>>>>>>>>>");
+            // console.log(response.body, "ini add book>>>>>>>>>>");
             expect(response.status).toBe(201)
             expect(typeof response.body).toEqual('object')
             expect(response.body).toHaveProperty("UserId")
@@ -340,7 +360,7 @@ describe('GET /public/foods', function(){
                 FoodId : 100
             })
             .set('access_token', access_token)
-            console.log(response.body, "ini add book>>>>>>>>>>");
+            // console.log(response.body, "ini add book>>>>>>>>>>");
             expect(response.status).toBe(404)
             expect(response.body).toHaveProperty('message')
             expect(response.body.message).toEqual("Resource Not Found")

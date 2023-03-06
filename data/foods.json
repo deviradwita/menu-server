@@ -1,0 +1,186 @@
+
+[
+    {
+        "name": "Topokki",
+        "description" : "Korean hot and spicy rice cake", 
+        "price" : 55000,
+        "imgUrl" : "https://iamafoodblog.b-cdn.net/wp-content/uploads/2021/07/tteokbokki-4592.jpg", 
+        "authorId": 1,
+        "categoryId" : 5,
+        "status" : "Active"
+    },
+    {
+        "name": "Tikka masala",
+        "description" : "roasted marinated chicken chunks (chicken tikka) in a spiced sauce", 
+        "price" : 125000,
+        "imgUrl" : "https://asset.kompas.com/crops/BxSdnP4SOnMJIjNreMuIWhVSRbE=/0x0:1000x667/750x500/data/photo/2021/07/31/61053292cd265.jpg", 
+        "authorId": 1,
+        "categoryId" : 4,
+        "status" : "Active"
+    },
+    {
+        "name": "Chicken gojuchang",
+        "description" : "Juicy, tender chicken bites in sweet, spicy, savoury gochujang sauce.", 
+        "price" : 10000,
+        "imgUrl" : "https://www.kitchensanctuary.com/wp-content/uploads/2019/08/Korean-Fried-Chicken-square-FS-New-7377.jpg", 
+        "authorId": 1,
+        "categoryId" : 5,
+        "status" : "Active"
+    },
+    {
+        "name": "Indomie",
+        "description" : "fried noodles with chicken, egg, and melted cheese", 
+        "price" : 50000,
+        "imgUrl" : "https://www.nibble.id/uploads/indomie_ropang_plus_plus_7ae81a3873.jpg", 
+        "authorId": 1,
+        "categoryId" : 3,
+        "status" : "Active"
+    },
+    {
+        "name": "Chicken Kofta",
+        "description" : "delicious dish of fried balls of chicken and paneer in a rich and creamy mild gravy made with sweet onions and tomatoes", 
+        "price" : 65000,
+        "imgUrl" : "https://images.immediate.co.uk/production/volatile/sites/30/2022/08/Fragrant-lamb-kofta-curry-0821ac7.jpg", 
+        "authorId": 1,
+        "categoryId" : 4,
+        "status" : "Active"
+    },
+    {
+        "name": "Cimol",
+        "description" : "street Indonesian snack, it’s fried tapioca starch/flour batter served with salt and chili powder", 
+        "price" : 30000,
+        "imgUrl" : "https://img.kurio.network/z5rkJFORTpyTwquMGEHyS5EfGEk=/320x320/filters:quality(80)/https://kurio-img.kurioapps.com/21/12/02/33794e21-7b89-4777-b4eb-d9f7716c1f7d.jpe", 
+        "authorId": 2,
+        "categoryId" : 3,
+        "status" : "Active"
+    },
+    {
+        "name": "Shrimp Dumpling",
+        "description" : "Hot steamed dumpling filled with chopped shrimp and bamboo shoots", 
+        "price" : 55000,
+        "imgUrl" : "https://mission-food.com/wp-content/uploads/2021/11/Har-Gow-Crystal-Shrimp-Dumplings-Featured.jpg", 
+        "authorId": 2,
+        "categoryId" : 2,
+        "status" : "Active"
+    },
+    {
+        "name": "Burger",
+        "description" : "High quality beef medium to well with cheese and bacon on a multigrain bun.", 
+        "price" : 65000,
+        "imgUrl" : "https://tinyurl.com/27p8pv7w", 
+        "authorId": 2,
+        "categoryId" : 1,
+        "status" : "Active"
+    },
+    {
+        "name": "Gao zi",
+        "description" : "steamed dumpling filled with chicken and shrimp with extra spice", 
+        "price" : 67000,
+        "imgUrl" : "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2022/2/3/ce26e024-e0f9-4ce5-b5a3-97c8697db985.jpg", 
+        "authorId": 2,
+        "categoryId" : 2,
+        "status" : "Active"
+    },
+    {
+        "name": "Soto",
+        "description" : "soto from Indonesia", 
+        "price" : 55000,
+        "imgUrl" : "https://cdn1.katadata.co.id/media/images/temp/2022/12/29/MAKANAN_KHAS_BANDUNG-2022_12_29-16_00_40_837278a915d0645e22a69013802ff2b3.jpg", 
+        "authorId": 1,
+        "categoryId" : 3,
+        "status" : "Active"
+    }, 
+    {
+        "name": "Chicken Orange",
+        "description" : "fried chicken pieces coated in a sweet orange-flavored chili sauce", 
+        "price" : 67999,
+        "imgUrl" : "https://www.halfbakedharvest.com/wp-content/uploads/2022/03/Spicy-Orange-Sesame-Chicken-1-500x500.jpg", 
+        "authorId": 1,
+        "categoryId" :2,
+        "status" : "Active"
+    },
+    {
+        "name": "Peking Duck",
+        "description" : "pieces of tender, roasted duck meat and crispy skin wrapped in a thin crepe, along with sliced spring onions, cucumbers, and hoisin sauce or sweet bean sauce. ", 
+        "price" : 167000,
+        "imgUrl" : "https://media.cnn.com/api/v1/images/stellar/prod/220926135240-02-body-chinese-foods-peking-duck.jpg?c=16x9&q=h_720,w_1280,c_fill", 
+        "authorId": 2,
+        "categoryId" : 2,
+        "status" : "Active"
+    },
+    {
+        "name": "Kungpao Chicken",
+        "description" : "a stir-fried Chinese dish that consists of cubed chicken in a sweet, spicy, and savory sauce.", 
+        "price" : 100000,
+        "imgUrl" : "https://media.cnn.com/api/v1/images/stellar/prod/220926134954-09-body-chinese-foods-kung-pao.jpg?c=16x9&q=h_720,w_1280,c_fill", 
+        "authorId": 1,
+        "categoryId" : 2,
+        "status" : "Active"
+    },
+    {
+        "name": "Mapo Tofu",
+        "description" : "immered medium-firm silken tofu flavored with fermented bean paste, beef, plenty of red-hot roasted chili oil, and a handful of Sichuan peppercorns", 
+        "price" : 70000,
+        "imgUrl" : "https://media.cnn.com/api/v1/images/stellar/prod/220926135452-08-body-chinese-foods-mapo-tofu.jpg?c=16x9&q=h_720,w_1280,c_fill", 
+        "authorId": 1,
+        "categoryId" : 2,
+        "status" : "Active"
+    },
+    {
+        "name": "Scallion Pancake",
+        "description" : "a Chinese pancake made with scallions", 
+        "price" : 60000,
+        "imgUrl" : "https://biancazapatka.com/wp-content/uploads/2019/03/scallion-pancakes-vegan-chinese-green-onion-chive-leek-flatbread-dough-easy-recipe-healthy-pfannkuchen-lauchzwiebel-fladenbrot-hefefrei-720x1008.jpg", 
+        "authorId": 1,
+        "categoryId" : 2,
+        "status" : "Active"
+    },
+    {
+        "name": "Charsiu",
+        "description" : "barbecued marinated pork", 
+        "price" : 80000,
+        "imgUrl" : "https://images.chinahighlights.com/allpicture/2021/12/a57fdce570494d41b624119d_cut_750x400_39.webp", 
+        "authorId": 1,
+        "categoryId" : 2,
+        "status" : "Active"
+    },
+    {
+        "name": "Stir Fry Garlic Brocolli",
+        "description" : "Vegan brocolli with garlic sauce", 
+        "price" : 65000,
+        "imgUrl" : "https://thewoksoflife.com/wp-content/uploads/2017/03/broccoli-garlic-sauce-8-1.jpg", 
+        "authorId": 1,
+        "categoryId" : 2,
+        "status" : "Active"
+    },
+    {
+        "name": "Sweet and Sour Pork",
+        "description" : "deep-fried pork chunks with onions, green bell peppers, and pineapples mixed together with a sweet and sour sauce.", 
+        "price" : 70000,
+        "imgUrl" : "https://therecipecritic.com/wp-content/uploads/2021/04/sweetandsourpork2.jpg", 
+        "authorId": 1,
+        "categoryId" : 2,
+        "status" : "Active"
+    }
+    ,
+    {
+        "name": "Gnnochi",
+        "description" : "Gnocchi are small rounds of potato dough.", 
+        "price" : 75000,
+        "imgUrl" : "https://cdn11.bigcommerce.com/s-cjh14ahqln/product_images/uploaded_images/gnocchi-all-amatriciana.jpg", 
+        "authorId": 1,
+        "categoryId" : 6,
+        "status" : "Active"
+    }
+    ,
+    {
+        "name": "Gelato",
+        "description" : "Gelato made from Italy", 
+        "price" : 50000,
+        "imgUrl" : "https://media.cntraveler.com/photos/59d3bca0331a8b3c01ae5497/master/w_1103,h_827,c_limit/SanLorenzo2.jpg", 
+        "authorId": 1,
+        "categoryId" : 6,
+        "status" : "Active"
+    }
+
+]
