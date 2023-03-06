@@ -16,10 +16,6 @@ const bookmark = require('./bookmark')
 router.use(login)
 router.use(register);
 router.use(publicUser)
-// router.get('/public/foods', PublicController.fetchFoods)
-// router.get('/public/foods/:id', PublicController.fetchFoodById)
-// router.get('/public/categories', PublicController.fetchCategories)
-// router.post('/public/qrcode/:id', PublicController.getQrCode)
 router.use(authentication);
 router.use(user);
 router.use(history)
