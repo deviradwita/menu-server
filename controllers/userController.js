@@ -80,7 +80,7 @@ class PublicController {
       const size = req.query.size
       const search = req.query.search
       
-      let limit =9
+      let limit =8
       let offset= 0
 
       let option = {
@@ -142,7 +142,7 @@ class PublicController {
        console.log(">>>>>>",option, ">>>>>>>>>");
       // // console.log("masuk food public");
       const food = await Food.findAndCountAll(option);
-      const response = getPagingData(food, page, limit)
+      const response = getPagingData(food, page, 8)
       // console.log(response.listFoods.length);
       if (response.listFoods.length ===0) {
         throw {name : 'NotFound'}
